@@ -13,7 +13,7 @@ export default function NavLink({ item }: { item: NavItem }) {
   return (
     <div
       className={`w-full cursor-pointer select-none rounded-[32px] max-h-[48px] flex-1 ${
-        isActive ? "bg-[#fff]" : "hover:bg-[#f3f3f5]"
+        isActive ? "bg-white" : "hover:bg-[#f3f3f5]"
       }`}
     >
       <Link

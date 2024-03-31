@@ -20,7 +20,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="flex h-full bg-[#ececee]">
           <SideNav />
-          <div>{children}</div>
+          <div className="flex flex-1 h-full bg-white rounded-2xl">
+            {children}
+          </div>
         </div>
       </body>
     </html>
