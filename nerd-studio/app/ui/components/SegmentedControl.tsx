@@ -12,7 +12,7 @@ export default function SegmentedControl({
   setOption,
 }: Props) {
   return (
-    <ul className="flex rounded-[20px] overflow-hidden bg-[#f1f2f3] p-1">
+    <ul className="flex rounded-[20px] overflow-hidden bg-secondary p-1">
       {options.map((item) => (
         <li key={item.id} className="float-left list-none">
           <input
@@ -26,8 +26,8 @@ export default function SegmentedControl({
           />
 
           <label
-            className={`block p-[5px_12px] text-center cursor-pointer rounded-[40px] text-sm font-[500] transition-colors select-none duration-200 ${
-              selectedOption === item.id ? "bg-black text-white" : ""
+            className={`block p-[5px_12px] text-center cursor-pointer rounded-[40px] text-sm font-medium transition-colors select-none duration-200 ${
+              selectedOption === item.id && "bg-black text-white"
             }`}
             htmlFor={`option-${item.id}`}
           >

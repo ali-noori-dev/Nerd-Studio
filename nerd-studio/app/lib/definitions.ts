@@ -8,3 +8,7 @@ export interface SegmentedItem {
   title: string;
   id: number;
 }
+
+export interface Language extends SegmentedItem {
+  nativeTitle: string;
+}

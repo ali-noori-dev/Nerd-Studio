@@ -19,7 +19,7 @@ export default function NavLink({ item }: { item: NavItem }) {
       <Link
         href={item.href}
         className={`px-3 flex w-full h-full items-center gap-[10px] min-h-[32px] ${
-          isActive ? "[&>svg]:text-primary" : ""
+          isActive && "[&>svg]:text-primary"
         }`}
       >
         {item.icon}
