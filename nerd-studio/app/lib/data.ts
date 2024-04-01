@@ -1,4 +1,4 @@
-import { Language } from "./definitions";
+import { GeneralResultModel, Language } from "./definitions";
 
 export const languages: Language[] = [
   {
@@ -252,3 +252,51 @@ export const languages: Language[] = [
     id: 50,
   },
 ];
+
+async function postApi(content: string) {
+  try {
+    const response = await fetch(
+      "https://api.deepseek.com/v1/chat/completions",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          messages: [
+            {
+              role: "system",
+              content: "You are a helpful assistant.",
+            },
+            {
+              role: "user",
+              content,
+            },
+          ],
+          model: "deepseek-chat",
+          frequency_penalty: 0,
+          max_tokens: 2048,
+          presence_penalty: 0,
+          stop: null,
+          stream: false,
+          temperature: 1,
+          top_p: 1,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer sk-cb45e498a91b48fd8255dc3649420acd",
+        },
+      }
+    );
+
+    const data: GeneralResultModel = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}
+
+export async function translateText({ inputText }: { inputText: string }) {
+  const content = `Translate the following text from {English} to {Farsi}:\n text\n ${inputText} \n`;
+  const response = await postApi(content);
+  const text = response?.choices[0]?.message?.content;
+  return text;
+}
