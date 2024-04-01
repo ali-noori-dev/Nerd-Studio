@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { AiOutlineSwap } from "react-icons/ai";
 import { languages, translateText } from "../lib/data";
 import { SegmentedItem } from "../lib/definitions";
+import { PageHeader } from "../ui/components/pageHeader";
 import { TextTranslationSelector } from "../ui/components/textTranslationSelector";
 
 // Define the segmented item list with "Auto detect" and the first two languages
@@ -42,8 +43,9 @@ export default function Translate() {
   }, [inputText]);
 
   return (
-    <div className="max-w-[800px] mx-auto h-full w-full flex flex-col px-5">
-      <h1 className="my-6 w-full text-[22px] font-bold">Translate</h1>
+    <div className="max-w-[800px] mx-auto h-full w-full flex flex-col">
+      <PageHeader title="Translate" />
+
       <div className="flex-1 pb-5 flex flex-col gap-3 items-center">
         {/* Input language selector */}
         <TextTranslationSelector
