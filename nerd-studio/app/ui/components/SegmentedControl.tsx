@@ -1,9 +1,10 @@
 import { SegmentedItem } from "@/app/lib/definitions";
+import { useId } from "react";
 
 interface Props {
   options: SegmentedItem[];
-  selectedOption: number;
-  setOption: (value: number) => void;
+  selectedOption: string;
+  setOption: (value: string) => void;
 }
 
 export default function SegmentedControl({
@@ -11,25 +12,26 @@ export default function SegmentedControl({
   selectedOption,
   setOption,
 }: Props) {
+  const id = useId();
   return (
     <ul className="flex rounded-[20px] overflow-hidden bg-secondary p-1">
-      {options.map((item) => (
-        <li key={item.id} className="float-left list-none">
+      {options.map((item, index) => (
+        <li key={index} className="float-left list-none">
           <input
             className="absolute hidden"
             type="radio"
             value={item.id}
             name="option"
-            id={`option-${item.id}`}
-            checked={selectedOption === item.id}
-            onChange={() => setOption(item.id)}
+            id={`${id}-${item.id}`}
+            checked={selectedOption === item.title}
+            onChange={() => setOption(item.title)}
           />
 
           <label
             className={`block p-[5px_12px] text-center cursor-pointer rounded-[40px] text-sm font-medium transition-colors select-none duration-200 ${
-              selectedOption === item.id && "bg-black text-white"
+              selectedOption === item.title && "bg-black text-white"
             }`}
-            htmlFor={`option-${item.id}`}
+            htmlFor={`${id}-${item.id}`}
           >
             {item.title}
           </label>
