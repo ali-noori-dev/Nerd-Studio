@@ -2,12 +2,12 @@
 import { useEffect, useState } from "react";
 import { AiOutlineSwap } from "react-icons/ai";
 import { languages, translateText } from "../lib/data";
-import { SegmentedItem } from "../lib/definitions";
+import { GeneralItem } from "../lib/definitions";
 import { PageHeader } from "../ui/components/pageHeader";
 import { TextTranslationSelector } from "../ui/components/textTranslationSelector";
 
 // Define the segmented item list with "Auto detect" and the first two languages
-const inputInitialLangs: SegmentedItem[] = [
+const inputInitialLangs: GeneralItem[] = [
   {
     title: "Auto detect",
     id: 0,
@@ -18,29 +18,33 @@ const inputInitialLangs: SegmentedItem[] = [
 export default function Translate() {
   // State variables for selected input and output languages, input text, and translated output
   const [inputSelectedLang, setInputSelectedLang] = useState(
-    inputInitialLangs[0].title
+    inputInitialLangs[0]
   );
-  const [outputSelectedLang, setOutputSelectedLang] = useState(
-    languages[0].title
+  const [outputSelectedLang, setOutputSelectedLang] = useState<GeneralItem>(
+    languages[0]
   );
   const [inputText, setInputText] = useState("");
   const [outputText, setOutputText] = useState("");
 
   // Effect to translate input text when it changes
   useEffect(() => {
-    const delay = 1500;
+    const delay = 700;
     let timeoutId: NodeJS.Timeout;
 
     if (inputText) {
       timeoutId = setTimeout(() => {
-        translateText({ inputText }).then((translatedText) => {
+        translateText({
+          inputText,
+          inputLang: inputSelectedLang.title,
+          outputLang: outputSelectedLang.title,
+        }).then((translatedText) => {
           if (translatedText) setOutputText(translatedText);
         });
       }, delay);
     }
 
     return () => clearTimeout(timeoutId); // Cleanup timeout on unmount or inputText change
-  }, [inputText]);
+  }, [inputText, inputSelectedLang, outputSelectedLang]);
 
   return (
     <div className="max-w-[800px] mx-auto h-full w-full flex flex-col">

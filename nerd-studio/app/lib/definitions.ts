@@ -4,12 +4,12 @@ export interface NavItem {
   href: string;
 }
 
-export interface SegmentedItem {
+export interface GeneralItem {
   title: string;
   id: number;
 }
 
-export interface Language extends SegmentedItem {
+export interface Language extends GeneralItem {
   nativeTitle: string;
 }
 
@@ -41,4 +41,10 @@ export interface Usage {
   completion_tokens: number;
   prompt_tokens: number;
   total_tokens: number;
+}
+
+export interface TranslateTextParams {
+  inputText: string;
+  inputLang: string;
+  outputLang: string;
 }

@@ -1,10 +1,10 @@
-import { SegmentedItem } from "@/app/lib/definitions";
+import { GeneralItem } from "@/app/lib/definitions";
 import { useId } from "react";
 
 interface Props {
-  options: SegmentedItem[];
-  selectedOption: string;
-  setOption: (value: string) => void;
+  options: GeneralItem[];
+  selectedOption: GeneralItem;
+  setOption: (option: GeneralItem) => void;
 }
 
 export default function SegmentedControl({
@@ -14,7 +14,7 @@ export default function SegmentedControl({
 }: Props) {
   const id = useId();
   return (
-    <ul className="flex rounded-[20px] overflow-hidden bg-secondary p-1">
+    <ul className="flex rounded-[20px] overflow-hidden bg-secondary p-1 w-fit">
       {options.map((item, index) => (
         <li key={index} className="float-left list-none">
           <input
@@ -23,13 +23,13 @@ export default function SegmentedControl({
             value={item.id}
             name="option"
             id={`${id}-${item.id}`}
-            checked={selectedOption === item.title}
-            onChange={() => setOption(item.title)}
+            checked={selectedOption.id === item.id}
+            onChange={() => setOption(item)}
           />
 
           <label
             className={`block p-[5px_12px] text-center cursor-pointer rounded-[40px] text-sm font-medium transition-colors select-none duration-200 ${
-              selectedOption === item.title && "bg-black text-white"
+              selectedOption.id === item.id && "bg-black text-white"
             }`}
             htmlFor={`${id}-${item.id}`}
           >

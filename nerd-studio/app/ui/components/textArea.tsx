@@ -22,7 +22,7 @@ export function Textarea({
       placeholder={placeholder}
       rows={rows}
       id={id}
-      className={`block w-full bg-secondary focus:outline-primary rounded-xl py-3 px-4 appearance-none leading-normal transition-colors duration-200 text-gray-600 placeholder:text-xs ${
+      className={`block w-full bg-secondary focus:outline-primary rounded-xl py-3 px-4 appearance-none leading-normal transition-colors duration-200 text-gray-600 placeholder:text-xs placeholder-gray-500 ${
         disableResizing && "disableResizing"
       }`}
     />

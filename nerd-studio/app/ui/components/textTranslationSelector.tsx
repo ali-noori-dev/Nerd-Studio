@@ -1,14 +1,14 @@
 import { languages } from "@/app/lib/data";
-import { SegmentedItem } from "@/app/lib/definitions";
+import { GeneralItem } from "@/app/lib/definitions";
 import { useState } from "react";
 import Autocomplete from "./autocomplete";
 import SegmentedControl from "./segmentedControl";
 import { Textarea } from "./textArea";
 
 interface Props {
-  initialLangs: SegmentedItem[];
-  selectedLang: string;
-  setSelectedLang: (value: string) => void;
+  initialLangs: GeneralItem[];
+  selectedLang: GeneralItem;
+  setSelectedLang: (option: GeneralItem) => void;
   text: string;
   setText: (value: string) => void;
   showAutoDetect?: boolean;
@@ -23,10 +23,10 @@ export function TextTranslationSelector({
   showAutoDetect,
 }: Props) {
   const [translationOptions, setTranslationOptions] =
-    useState<SegmentedItem[]>(initialLangs);
+    useState<GeneralItem[]>(initialLangs);
 
-  const handleLangChange = (selectedOption: SegmentedItem) => {
-    setSelectedLang(selectedOption.title);
+  const handleLangChange = (selectedOption: GeneralItem) => {
+    setSelectedLang(selectedOption);
     // Check if the selected option is already in the list
     const isOptionInList = translationOptions.some(
       (item) => item.id === selectedOption.id
@@ -34,7 +34,7 @@ export function TextTranslationSelector({
     if (!isOptionInList) updateTranslationOptions(selectedOption);
   };
 
-  const updateTranslationOptions = (selectedOption: SegmentedItem) => {
+  const updateTranslationOptions = (selectedOption: GeneralItem) => {
     const newOptions = [...translationOptions];
     if (showAutoDetect) {
       // Insert the selected option after "Auto detect" at index 1

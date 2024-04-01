@@ -1,4 +1,4 @@
-import { Language } from "@/app/lib/definitions";
+import { GeneralItem, Language } from "@/app/lib/definitions";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaCheck } from "react-icons/fa6";
@@ -7,7 +7,7 @@ import { Input } from "./input";
 
 interface Props {
   options: Language[];
-  selectedOption: string;
+  selectedOption: GeneralItem;
   setOption: (value: Language) => void;
 }
 
@@ -34,7 +34,7 @@ function Autocomplete({ options, selectedOption, setOption }: Props) {
   const handleOptionClick = (option: Language) => {
     setValue("");
     setShowOptions(false);
-    if (option.title !== selectedOption) setOption(option);
+    if (option.id !== selectedOption.id) setOption(option);
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
@@ -74,7 +74,7 @@ function Autocomplete({ options, selectedOption, setOption }: Props) {
 
           <ul className="flex flex-col gap-1 flex-1 overflow-auto">
             {filteredOptions.map((option, index) => {
-              const isSelected = option.title === selectedOption;
+              const isSelected = option.id === selectedOption.id;
               return (
                 <li
                   key={index}

@@ -25,7 +25,7 @@ export function Input({
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
         ref={inputRef}
-        className={`block w-full h-9 bg-secondary focus:outline-primary rounded-xl py-3 pr-8 pl-10 appearance-none leading-normal transition-colors duration-200 text-gray-600 placeholder:text-xs`}
+        className={`block w-full h-9 bg-secondary focus:outline-primary rounded-xl py-3 pr-8 pl-10 appearance-none leading-normal transition-colors duration-200 text-gray-600 placeholder:text-xs placeholder-gray-500`}
       />
     </div>
   );

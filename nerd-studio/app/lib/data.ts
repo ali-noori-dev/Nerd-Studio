@@ -1,4 +1,8 @@
-import { GeneralResultModel, Language } from "./definitions";
+import {
+  GeneralResultModel,
+  Language,
+  TranslateTextParams,
+} from "./definitions";
 
 export const languages: Language[] = [
   {
@@ -294,8 +298,12 @@ async function postApi(content: string) {
   }
 }
 
-export async function translateText({ inputText }: { inputText: string }) {
-  const content = `Translate the following text from {English} to {Farsi}:\n text\n ${inputText} \n`;
+export async function translateText({
+  inputText,
+  inputLang,
+  outputLang,
+}: TranslateTextParams) {
+  const content = `Translate the following text from {${inputLang}} to {${outputLang}} without additional explanations:\n ${inputText}`;
   const response = await postApi(content);
   const text = response?.choices[0]?.message?.content;
   return text;
