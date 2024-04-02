@@ -49,7 +49,8 @@ export default function Write() {
 
   const isButtonDisabled =
     (selectedOption.id === 1 && !composeText) ||
-    (selectedOption.id === 2 && !replyText);
+    (selectedOption.id === 2 && !replyText) ||
+    loading;
 
   const composeField = (
     <div className="flex flex-col gap-2">
