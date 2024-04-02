@@ -9,9 +9,17 @@ interface Props {
   options: Language[];
   selectedOption: GeneralItem;
   setOption: (value: Language) => void;
+  showSelectedOption?: boolean;
+  showOptionsAbove?: boolean;
 }
 
-function Autocomplete({ options, selectedOption, setOption }: Props) {
+function Autocomplete({
+  options,
+  selectedOption,
+  setOption,
+  showSelectedOption,
+  showOptionsAbove,
+}: Props) {
   const [value, setValue] = useState("");
   const [showOptions, setShowOptions] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -52,18 +60,31 @@ function Autocomplete({ options, selectedOption, setOption }: Props) {
     <div
       ref={containerRef}
       tabIndex={-1} // This makes the div focusable
-      className="outline-none relative"
+      className="outline-none relative w-fit"
       onBlur={(e) => handleBlur(e)}
       onClick={handleFocus}
     >
-      <div className="cursor-pointer p-1 hover:bg-secondary w-[28px] h-[28px] rounded-lg">
-        <MdOutlineExpandMore
-          className={` text-xl transition-all ${showOptions && "rotate-180"}`}
-        />
-      </div>
+      {showSelectedOption ? (
+        <div
+          className={`cursor-pointer py-[6px] px-3 bg-secondary hover:bg-gray-200 flex justify-between rounded-full min-w-[140px] items-center w-fit select-none`}
+        >
+          <span className="text-sm font-medium">{selectedOption.title}</span>
+          <MdOutlineExpandMore className={` text-xl`} />
+        </div>
+      ) : (
+        <div className="cursor-pointer p-1 hover:bg-secondary w-[28px] h-[28px] rounded-lg">
+          <MdOutlineExpandMore
+            className={` text-xl transition-all ${showOptions && "rotate-180"}`}
+          />
+        </div>
+      )}
 
       {showOptions && (
-        <div className="flex flex-col gap-1 absolute p-2 top-[100%] right-0 z-10 w-[252px] h-[368px] max-h-[368px] py-1 mt-1 text-gray-600 bg-white rounded-lg shadow">
+        <div
+          className={`flex flex-col gap-1 absolute p-2 z-10 w-[252px] h-[368px] max-h-[368px] py-1 my-3 text-gray-600 bg-white rounded-lg shadow ${
+            showOptionsAbove ? "bottom-[100%]" : "top-[100%]"
+          } ${showSelectedOption ? "left-0" : "right-0"}`}
+        >
           <Input
             value={value}
             setValue={setValue}

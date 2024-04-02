@@ -12,6 +12,7 @@ interface Props {
   text: string;
   setText: (value: string) => void;
   showAutoDetect?: boolean;
+  showOptionAbove?: boolean;
 }
 
 export function TextTranslationSelector({
@@ -21,6 +22,7 @@ export function TextTranslationSelector({
   text,
   setText,
   showAutoDetect,
+  showOptionAbove,
 }: Props) {
   const [translationOptions, setTranslationOptions] =
     useState<GeneralItem[]>(initialLangs);
@@ -58,6 +60,7 @@ export function TextTranslationSelector({
           options={languages}
           selectedOption={selectedLang}
           setOption={handleLangChange}
+          showOptionsAbove={showOptionAbove}
         />
       </div>
 

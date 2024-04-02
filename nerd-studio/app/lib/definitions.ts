@@ -42,9 +42,3 @@ export interface Usage {
   prompt_tokens: number;
   total_tokens: number;
 }
-
-export interface TranslateTextParams {
-  inputText: string;
-  inputLang: string;
-  outputLang: string;
-}

@@ -1,8 +1,4 @@
-import {
-  GeneralResultModel,
-  Language,
-  TranslateTextParams,
-} from "./definitions";
+import { GeneralResultModel, Language } from "./definitions";
 
 export const languages: Language[] = [
   {
@@ -298,13 +294,67 @@ async function postApi(content: string) {
   }
 }
 
-export async function translateText({
-  inputText,
-  inputLang,
-  outputLang,
-}: TranslateTextParams) {
-  const content = `Translate the following text from {${inputLang}} to {${outputLang}} without additional explanations:\n ${inputText}`;
+export async function generateAIResponse(content: string) {
   const response = await postApi(content);
   const text = response?.choices[0]?.message?.content;
   return text;
 }
+
+// export const useFetchData = (content: string) => {
+//   const [responseChunks, setResponseChunks] = useState<string[]>([]);
+
+//   const fetchData = async () => {
+//     try {
+//       const response = await fetch(
+//         "https://api.deepseek.com/v1/chat/completions",
+//         {
+//           method: "POST",
+//           body: JSON.stringify({
+//             messages: [
+//               {
+//                 role: "system",
+//                 content: "You are a helpful assistant.",
+//               },
+//               {
+//                 role: "user",
+//                 content,
+//               },
+//             ],
+//             model: "deepseek-chat",
+//             frequency_penalty: 0,
+//             max_tokens: 2048,
+//             presence_penalty: 0,
+//             stop: null,
+//             stream: true,
+//             temperature: 1,
+//             top_p: 1,
+//           }),
+//           headers: {
+//             "Content-Type": "application/json",
+//             Authorization: "Bearer sk-cb45e498a91b48fd8255dc3649420acd",
+//           },
+//         }
+//       );
+
+//       const reader = response.body?.getReader();
+//       let done = false;
+
+//       while (!done && reader) {
+//         const { value, done: readerDone } = await reader.read();
+
+//         if (value) {
+//           const chunk = new TextDecoder().decode(value);
+//           setResponseChunks((prevChunks) => [...prevChunks, chunk]);
+//         }
+
+//         if (readerDone) {
+//           done = true;
+//         }
+//       }
+//     } catch (error) {
+//       console.error("Error fetching data:", error);
+//     }
+//   };
+
+//   return { fetchData, responseChunks };
+// };

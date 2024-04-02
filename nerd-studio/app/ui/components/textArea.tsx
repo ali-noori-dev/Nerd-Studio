@@ -1,11 +1,12 @@
 import { useId } from "react";
 
 interface Props {
-  placeholder: string;
+  placeholder?: string;
   value: string;
   setValue: (value: string) => void;
   disableResizing?: boolean;
   rows?: number;
+  fullHeight?: boolean;
 }
 export function Textarea({
   placeholder,
@@ -13,6 +14,7 @@ export function Textarea({
   setValue,
   disableResizing,
   rows,
+  fullHeight,
 }: Props) {
   const id = useId();
   return (
@@ -24,7 +26,7 @@ export function Textarea({
       id={id}
       className={`block w-full bg-secondary focus:outline-primary rounded-xl py-3 px-4 appearance-none leading-normal transition-colors duration-200 text-gray-600 placeholder:text-xs placeholder-gray-500 ${
         disableResizing && "disableResizing"
-      }`}
+      } ${fullHeight && "h-full"}`}
     />
   );
 }

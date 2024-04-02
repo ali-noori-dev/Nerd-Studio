@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { AiOutlineSwap } from "react-icons/ai";
-import { languages, translateText } from "../lib/data";
+import { generateAIResponse, languages } from "../lib/data";
 import { GeneralItem } from "../lib/definitions";
 import { PageHeader } from "../ui/components/pageHeader";
 import { TextTranslationSelector } from "../ui/components/textTranslationSelector";
@@ -33,11 +33,9 @@ export default function Translate() {
 
     if (inputText) {
       timeoutId = setTimeout(() => {
-        translateText({
-          inputText,
-          inputLang: inputSelectedLang.title,
-          outputLang: outputSelectedLang.title,
-        }).then((translatedText) => {
+        const content = `Translate the following text from {${inputSelectedLang.title}} to {${outputSelectedLang.title}} without additional explanations:\n ${inputText}`;
+
+        generateAIResponse(content).then((translatedText) => {
           if (translatedText) setOutputText(translatedText);
         });
       }, delay);
@@ -71,6 +69,7 @@ export default function Translate() {
           setSelectedLang={setOutputSelectedLang}
           text={outputText}
           setText={setOutputText}
+          showOptionAbove
         />
       </div>
     </div>
